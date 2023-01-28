@@ -2,14 +2,15 @@ module.exports = {
     title: 'T8840 Blog',
     description: 'T8840的博客',
     theme: 'reco',
+    base: '/go/',
     locales: {
-        '/go/': {
+        '/': {
           lang: 'zh-CN'
         }
       },
     themeConfig: {
         nav: [
-            { text: '首页', link: '/go/' },
+            { text: '首页', link: '/' },
             { 
                 text: 'T8840 博客', 
                 items: [
@@ -21,100 +22,100 @@ module.exports = {
         sidebar: [
             {
                 title: '欢迎学习',
-                path: '/go/',
+                path: '/',
                 collapsable: false, // 不折叠
                 children: [
-                    { title: "学前必读", path: "/go/" }
+                    { title: "学前必读", path: "/" }
                 ]
             },
             {
               title: "基础学习",
-              path: '/go/basic/DesignPhilosophy',
+              path: '/basic/DesignPhilosophy',
               collapsable: false, // 不折叠
               children: [
-                { title: "设计哲学", path: "/go/basic/DesignPhilosophy" },
-                { title: "安装方法", path: "/go/basic/InstallMethod" },
-                { title: "数据类型", path: "/go/basic/DataStructure" },
-                { title: "变量常量", path: "/go/basic/VariableConstants" },
-                { title: "字符串", path: "/go/basic/String" },
-                { title: "数组切片", path: "/go/basic/List" },
-                { title: "Map", path: "/go/basic/Map" },
-                { title: "指针", path: "/go/basic/Pointer" },
-                { title: "结构体", path: "/go/basic/Structure" },
-                { title: "运算符", path: "/go/basic/Operator" },
-                { title: "语句", path: "/go/basic/Statement" },
-                { title: "函数", path: "/go/basic/Function" },
-                { title: "方法", path: "/go/basic/Method" },
-                { title: "接口", path: "/go/basic/Interface" },
-                { title: "错误处理", path: "/go/basic/Error" },
-                { title: "异常", path: "/go/basic/Panic" },
-                { title: "包管理", path: "/go/basic/GoModule" },
-                { title: "项目布局", path: "/go/basic/Layout" },
+                { title: "设计哲学", path: "/basic/DesignPhilosophy" },
+                { title: "安装方法", path: "/basic/InstallMethod" },
+                { title: "数据类型", path: "/basic/DataStructure" },
+                { title: "变量常量", path: "/basic/VariableConstants" },
+                { title: "字符串", path: "/basic/String" },
+                { title: "数组切片", path: "/basic/List" },
+                { title: "Map", path: "/basic/Map" },
+                { title: "指针", path: "/basic/Pointer" },
+                { title: "结构体", path: "/basic/Structure" },
+                { title: "运算符", path: "/basic/Operator" },
+                { title: "语句", path: "/basic/Statement" },
+                { title: "函数", path: "/basic/Function" },
+                { title: "方法", path: "/basic/Method" },
+                { title: "接口", path: "/basic/Interface" },
+                { title: "错误处理", path: "/basic/Error" },
+                { title: "异常", path: "/basic/Panic" },
+                { title: "包管理", path: "/basic/GoModule" },
+                { title: "项目布局", path: "/basic/Layout" },
                 
               ],
             },
             {
               title: "并发编程",
-              path: '/go/concurrent/Goroutine',
+              path: '/concurrent/Goroutine',
               collapsable: false, // 不折叠
               children: [
-                { title: "Goroutine", path: "/go/concurrent/Goroutine" },
-                { title: "channel通道", path: "/go/concurrent/Channel" },
+                { title: "Goroutine", path: "/concurrent/Goroutine" },
+                { title: "channel通道", path: "/concurrent/Channel" },
   
               ],
             },
             {
               title: "进阶学习",
-              path: '/go/advance/Generics',
+              path: '/advance/Generics',
               collapsable: false, // 不折叠
               children: [
-                { title: "泛型", path: "/go/advance/Generics" },
-                { title: "反射", path: "/go/advance/Reflect" },
+                { title: "泛型", path: "/advance/Generics" },
+                { title: "反射", path: "/advance/Reflect" },
                 
               ],
             },
             {
               title: "常用依赖",
-              path: '/go/lib/Summary',
+              path: '/lib/Summary',
               collapsable: false, // 不折叠
               children: [
-                { title: "汇总", path: "/go/lib/Summary" },
-                { title: "DBTools", path: "/go/lib/DBTools" },
-                { title: "FileTools", path: "/go/lib/FileTools" },  
+                { title: "汇总", path: "/lib/Summary" },
+                { title: "DBTools", path: "/lib/DBTools" },
+                { title: "FileTools", path: "/lib/FileTools" },  
               ],
             },
             {
               title: "网络编程",
-              path: '/go/net/Tcp',
+              path: '/net/Tcp',
               collapsable: false, // 不折叠
               children: [
-                { title: "TCP", path: "/go/net/Tcp" },
-                { title: "HTTPServer", path: "/go/net/HttpServer" },
-                { title: "HttpClient", path: "/go/net/HttpClient" },
-                { title: "Gin框架", path: "/go/net/Gin" },
-                { title: "Beego框架", path: "/go/net/Beego" },
+                { title: "TCP", path: "/net/Tcp" },
+                { title: "HTTPServer", path: "/net/HttpServer" },
+                { title: "HttpClient", path: "/net/HttpClient" },
+                { title: "Gin框架", path: "/net/Gin" },
+                { title: "Beego框架", path: "/net/Beego" },
   
               ],
             },
             {
               title: "项目",
-              path: '/go/project/CmdTool',
+              path: '/project/CmdTool',
               collapsable: false, // 不折叠
               children: [
-                { title: "命令行工具", path: "/go/project/CmdTool" },
-                { title: "Api网关", path: "/go/project/ApiGateway" },
-                { title: "SimpleRpc", path: "/go/project/SimpleRpc" },
-                { title: "SimpleRedis", path: "/go/project/SimpleRedis" },
+                { title: "命令行工具", path: "/project/CmdTool" },
+                { title: "Api网关", path: "/project/ApiGateway" },
+                { title: "SimpleRpc", path: "/project/SimpleRpc" },
+                { title: "SimpleRedis", path: "/project/SimpleRedis" },
   
               ],
             },
             {
               title: "源码解读",
-              path: '/go/code/Etcd',
+              path: '/code/Etcd',
               collapsable: false, // 不折叠
               children: [
-                { title: "Etcd源码解读", path: "/go/code/Etcd" },
-                { title: "Docker源码解读", path: "/go/code/Docker" },
+                { title: "Etcd源码解读", path: "/code/Etcd" },
+                { title: "Docker源码解读", path: "/code/Docker" },
               ],
             }
           ]
