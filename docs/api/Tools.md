@@ -11,7 +11,7 @@ date: '2023-01-15'
 
 
 ## http client工具
-###  request + pytest +allure
+###  request/httpx/aiohttp
 
 ###  httprunner
 
