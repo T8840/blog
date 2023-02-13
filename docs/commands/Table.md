@@ -5,6 +5,7 @@ date: '2023-01-15'
 ---
 
 ## 创建表命令
+创建表会使用到特定约束；
 ```sql
 CREATE TABLE <表名>（
 <字段名1> <数据类型>(<数据长度>),
@@ -12,19 +13,151 @@ CREATE TABLE <表名>（
 ....
 <字段名n> <数据类型>(<数据长度>)
 ）;
-```
-```sql
+-- 主键约束
+CREATE TABLE
+(
+字段名 字段类型 PRIMARY KEY
+);
+-- 带非空约束
+CREATE TABLE
+(
+
+字段名 字段类型 NOT NULL
+);
+-- 带唯一约束
+CREATE TABLE
+(
+字段名 字段类型 UNIQUE
+);
+-- 默认约束
+CREATE TABLE
+(
+字段名 字段类型 DEFAULT 值
+);
+-- 这里要注意自增类型的条件，字段类型必须是整数类型。
+CREATE TABLE
+(
+字段名 字段类型 AUTO_INCREMENT
+);
+-- 在一个已经存在的表基础上，创建一个新表
+CREATE TABLE demo.importheadhist LIKE demo.importhead;
+-- 示例
 CREATE TABLE student(id int(10),stu_name char(20),gender char(10));
 ```
-- SHOW TABLES; # 查询所有数据表
 
-## 查询命令
-### 条件查询命令
+
+## 修改表命令
 
 ```sql
-select  system_code,component  from sf_sonarqube_static WHERE component like '%IBU-IUOP-ICCSP%';
+ALTER TABLE 表名 CHANGE 旧字段名 新字段名 数据类型;
+ALTER TABLE 表名 ADD COLUMN 字段名 字段类型 FIRST|AFTER 字段名;
+ALTER TABLE 表名 MODIFY 字段名 字段类型 FIRST|AFTER 字段名;
 
-UPDATE sf_sonarqube_static set system_code = 'IBU-IUOP-ICCSP'   WHERE component like '%IBU-IUOP-ICCSP%';
 ```
-### 多表查询命令
-#### 连接查询
+
+## 查看表结构
+```sql
+ DESCRIBE TABLE;
+```
+出现的各字段含义：
+- Field：表示字段名称。
+- Type：表示字段类型，这里barcode、goodsname是文本型的，price是整数类型的。
+- Null：表示这个字段是否允许是空值（NULL）。这里你一定要注意，在MySQL里面，空值不等于空字符串。一个空字符串的长度是0，而一个空值的长度是空。而且，在MySQL里面，空值是占用空间的。
+- Key：我们暂时把它叫做键。
+- Default：表示默认值。我们导入的表的所有的字段都允许是空，默认值都是NULL。
+- Extra：表示附加信息。
+
+
+## 合理为表设置主键
+
+三种设置主键的思路：业务字段做主键、自增字段做主键和手动赋值字段做主键。
+### 业务字段做主键
+用业务字段做主键，看起来很简单，但是我们应该尽量避免这样做。因为我们无法预测未来会不会因为业务需要，而出现业务字段重复或者重用的情况。
+
+### 自增字段做主键
+自增字段做主键，对于单机系统来说是没问题的。但是，如果有多台服务器，各自都可以录入数据，那就不一定适用了。因为如果每台机器各自产生的数据需要合并，就可能会出现主键重复的问题。
+
+### 手动赋值字段做主键
+可以采用手动赋值的办法，通过一定的逻辑，确保字段值在全系统的唯一性，这样就可以规避主键重复的问题了。
+
+
+## 多表查询依赖从表创建外键
+
+外键约束定义的语法结构： 
+```sql
+
+[CONSTRAINT <外键约束名称>] FOREIGN KEY 字段名
+REFERENCES <主表名> 字段名
+
+-- 在创建表的时候定义外键约束
+CREATE TABLE 从表名
+(
+ 字段名 类型,
+ ...
+-- 定义外键约束，指出外键字段和参照的主表字段
+CONSTRAINT 外键约束名
+FOREIGN KEY (字段名) REFERENCES 主表名 (字段名)
+)
+
+-- 修改表来定义外键约束
+ALTER TABLE 从表名 ADD CONSTRAINT 约束名 FOREIGN KEY 字段名 REFERENCES 主表名 （字段名）;
+```
+
+
+## 临时表
+
+临时表是一种特殊的表，用来存储查询的中间结果，并且会随着当前连接的结束而自动删除。MySQL中有2种临时表，分别是内部临时表和外部临时表：
+- 内部临时表主要用于性能优化，由系统自动产生，我们无法看到；
+- 外部临时表通过SQL语句创建，我们可以使用。
+
+### 创建和使用外部临时表
+临时表的创建语法结构
+```sql
+CREATE TEMPORARY TABLE 表名
+(
+字段名 字段类型,
+...
+);
+```
+跟普通表相比，临时表有3个不同的特征： 
+1. 临时表的创建语法需要用到关键字TEMPORARY；
+2. 临时表创建完成之后，只有当前连接可见，其他连接是看不到的，具有连接隔离性；
+3. 临时表在当前连接结束之后，会被自动删除。  
+因为临时表有连接隔离性，不同连接创建相同名称的临时表也不会产生冲突，适合并发程序
+的运行。而且，连接结束之后，临时表会自动删除，也不用担心大量无用的中间数据会残留
+在数据库中。因此，我们就可以利用这些特点，用临时表来存储SQL查询的中间结果。
+
+### 用临时表简化复杂查询
+
+通过临时表，我们就可以把一个复杂的问题拆分成很多个前后关联的步骤，把中间的运行结果存储起来，用于之后的查询。这样一来，就把面向集合的SQL查询变成了面向过程的编程模式，大大降低了难度.
+
+### 内存临时表和磁盘临时表
+由于采用的存储方式不同，临时表也可分为内存临时表和磁盘临时表，它们有着各自的优缺
+点.
+- 关于内存临时表，可以通过指定引擎类型（比如ENGINE=MEMORY），来告诉MySQL临时表存储在内存中
+- 只要我们不指定存储引擎，MySQL会默认存储引擎是InnoDB，并且把表存放在磁盘上.
+内存中的临时表查询速度更快,内存中的临时表也有缺陷。因为数据完全在内存中，所以，一旦断电，数据就消失了，无法找回。不过临时表只保存中间结果，所以还是可以用的
+
+
+## 导出和导入表里的数据
+
+### SELECT语句导出数据
+使用“SELECT … INTO OUTFILE”语句导出数据表的语法结构是：
+```sql
+SELECT 字段列表 INTO OUTFILE 文件名称
+FIELDS TERMINATED BY 字符
+LINES TERMINATED BY 字符
+FROM 表名;
+```
+解释，INTO OUTFILE 文件名称，表示查询的结果保存到文件名称指定的文件中；  
+FIELDS TERMINATED BY 字符，表示列之间的分隔符是“字符”；  
+LINES TERMINATED BY 字符，表示行之间的分隔符是“字符”。  
+
+### 使用“LOAD DATA”语句导入数据
+```sql
+LOAD DATA INFILE 文件名
+INTO TABLE 表名
+FIELDS TERMINATED BY 字符
+LINES TERMINATED BY 字符;
+
+```
