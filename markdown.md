@@ -23,3 +23,16 @@
   ```markdown
   ![student](./student.png "student")
   ```  
+### Markdown添加表格
+要添加表，请使用三个或多个连字符（---）创建每列的标题，并使用管道（|）分隔每列。您可以选择在表的任一端添加管道。
+  ```markdown
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+ ```
+呈现的输出如下所示：
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
