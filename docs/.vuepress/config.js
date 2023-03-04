@@ -34,7 +34,7 @@ module.exports = {
               collapsable: false, // 不折叠
               children: [
                 { title: "Web3最佳编程实践指南", path: "/best/BestWeb3TechIntroduce" },
-                { title: "初步了解Solidity", path: "/best/FirstMetSolidity" },
+                
               ],
             },
             {
@@ -43,7 +43,8 @@ module.exports = {
               collapsable: false, // 不折叠
               children: [
                 { title: "介绍", path: "/basic/Introduce" },
-
+                { title: "初步了解Solidity", path: "/basic/FirstMetSolidity" },
+                { title: "SoliditybyExample", path: "/basic/SoliditybyExample" },
               ],
             },
             {

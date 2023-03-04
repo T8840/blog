@@ -4,74 +4,50 @@ author: T8840
 date: '2023-02-15'
 ---
 
-本文转载于：https://guoyu.mirror.xyz/RD-xkpoxasAU7x5MIJmiCX4gll3Cs0pAd5iM258S1Ek  
-Github: https://github.com/stars/guo-yu/lists/dapp-best-practice-stack
+本文转载From：[链接](https://guoyu.mirror.xyz/RD-xkpoxasAU7x5MIJmiCX4gll3Cs0pAd5iM258S1Ek)  
+涉及的项目[Github](https://github.com/stars/guo-yu/lists/dapp-best-practice-stack)
 
 ## 1. 认识 DApp 技术栈
 与传统的 App（包括 Web App 与 Mobile App）最大的不同点在于，DApp 的大量功能依赖直接与智能合约（以下简称合约）进行交互。我们无法直接使用前端代码调用合约，因此，在开发 DApp 之前，我们必须理解这一技术栈中存在哪些技术细节以及它们分别扮演何种角色。
 
-智能合约：通常指代运行在 EVM 兼容网络中的 Solidity 或其他合约语言代码，他们负责与用户交易我们发行的资产并储存 DApp 的链上状态。
-DApp：整合合约接口以及其他功能的应用程序界面，目前，它们大部分是 Web App，你可以用流行的框架例如 React/Vue 来进行编写。
-Provider/Signer: 这是一个 DApp 架构中特殊的角色，它负责与区块链进行通信，并进行合约的读/写操作。Metamask 是一个流行的 InjectProvider（Web3Provider）你也可以使用其他 JSON-RPC Provider 与区块链进行通信。
-Relay: 这个角色隐藏在 Provider/Signer 之后，是真正负责我们与区块链的某一个节点同步状态的服务器集群，它保存了所有账本（全节点）它通常是 Infura、Alchemy、Quicknode、Moralis 或者 Pocket 提供的服务。
-服务端（可选）：大部分 DApp 仍然有他们的服务端逻辑，这意味着，你需要自己搭建服务环境，或使用流行的 BasS/FaaS 服务，你可以使用深度整合区块链的 Moralis 来完成服务端的开发，也可以使用成熟的 Firebase 体系。当然，你也可以挑战完全不依赖服务端的方式来构建 DApp，就像 Uniswap 所做的那样。
-现在，我们知道编写一个 DApp 大概需要哪些领域的知识，如果你已经决定迈向下一代互联网并打算闯荡一番，我会在接下来的内容中仔细介绍这些角色分别需要理解哪些编程语言，框架和库。
+- 智能合约：通常指代运行在 EVM 兼容网络中的 Solidity 或其他合约语言代码，他们负责与用户交易我们发行的资产并储存 DApp 的链上状态。
+- DApp：整合合约接口以及其他功能的应用程序界面，目前，它们大部分是 Web App，你可以用流行的框架例如 React/Vue 来进行编写。
+- Provider/Signer: 这是一个 DApp 架构中特殊的角色，它负责与区块链进行通信，并进行合约的读/写操作。Metamask 是一个流行的 InjectProvider（Web3Provider）你也可以使用其他 JSON-RPC Provider 与区块链进行通信。
+- Relay: 这个角色隐藏在 Provider/Signer 之后，是真正负责我们与区块链的某一个节点同步状态的服务器集群，它保存了所有账本（全节点）它通常是 Infura、Alchemy、Quicknode、Moralis 或者 Pocket 提供的服务。
+- 服务端（可选）：大部分 DApp 仍然有他们的服务端逻辑，这意味着，你需要自己搭建服务环境，或使用流行的 BasS/FaaS 服务，你可以使用深度整合区块链的 Moralis 来完成服务端的开发，也可以使用成熟的 Firebase 体系。当然，你也可以挑战完全不依赖服务端的方式来构建 DApp，就像 Uniswap 所做的那样。  
+现在，我们知道编写一个 DApp 大概需要哪些领域的知识，如果你已经决定迈向下一代互联网并打算闯荡一番，我会在接下来的内容中仔细介绍这些角色分别需要理解哪些编程语言，框架和库。  
 
-让我们先进入最重要的部分，智能合约。大量程序员望而却步的重要门槛是，他们认为智能合约需要学习一门新的编程语言，Solidity，这毫无疑问，我非常推荐入门 Web3 的程序员—— 无论你是从哪一个软件开发领域转型而来 —— 从 Solidity 入手学习 DApp 开发。
+让我们先进入最重要的部分，智能合约。大量程序员望而却步的重要门槛是，他们认为智能合约需要学习一门新的编程语言，Solidity，这毫无疑问，我非常推荐入门 Web3 的程序员—— 无论你是从哪一个软件开发领域转型而来 —— 从 Solidity 入手学习 DApp 开发。  
 
-在智能合约的编码方面，我们目前有许多工具，但认识和理解 Solidity 非常有必要，大量的已经存在的，和流行的合约都使用它进行编码，因此，学习 Solidity 不但有助于帮助你理解区块链开发的基本知识和概念，还能让你在许多优秀的开发者已有的卓越工程上快速起步。
+在智能合约的编码方面，我们目前有许多工具，但认识和理解 Solidity 非常有必要，大量的已经存在的，和流行的合约都使用它进行编码，因此，学习 Solidity 不但有助于帮助你理解区块链开发的基本知识和概念，还能让你在许多优秀的开发者已有的卓越工程上快速起步。  
 
-就编程语言而言，在目前的 EVM 兼容链上，你可以使用 Solidity 或 Vyper 进行开发，在其他 L1s 区块链上，例如 Solana，你可以使用 Rust 来进行合约的开发；在 Layer2 方案 StarkNet 中，你可以使用 Cairo 来进行开发；在 Arweave 储存网络中，也存在着类似 3em 这样的运行环境支持你使用 JavaScript 来编写合约。
+就编程语言而言，在目前的 EVM 兼容链上，你可以使用 Solidity 或 Vyper 进行开发，在其他 L1s 区块链上，例如 Solana，你可以使用 Rust 来进行合约的开发；在 Layer2 方案 StarkNet 中，你可以使用 Cairo 来进行开发；在 Arweave 储存网络中，也存在着类似 3em 这样的运行环境支持你使用 JavaScript 来编写合约。  
 
 在这些百花齐放的方案中，实际上存在着两种不同的合约运行环境，EVM 或非 EVM 方案，前者的代码都会被编译成 EVM bytecode，而后者则会采用各种各样的 runtime，各显神通。
 
 这篇文章不会在合约编程语言上讨论太多，我认为，我们目前正处于合约 runtime 的战国时代，没有人能断言哪种合约编程语言的地位会成为 Web 世界的 JavaScript。但对于智能合约编码来说，我们必须要了解和熟悉 Solidity，这是毫无疑问的。
 
-关于 Solidity，我推荐你从 Solidity by Example 教程开始学习：
+关于 Solidity，我推荐你从 [Solidity by Example](solidity-by-example.org) 教程开始学习：
 
-Solidity by Example
-solidity-by-example.org
 这一教程没有繁琐的语法介绍，而根据范例帮助读者掌握基本知识，因此，完成这一教程大约只需要不到一个工作日。Solidity 并不是一个特别复杂的语言，在使用它时，我们可以逐步理解每一项语句的语义，我推荐你设置好编码环境后按照网站上的范例来进行实践。当你已经掌握所有范例的写法之后，可以打开 Solidity 语言官方文档（中文）对照编码中的错误来进行针对性的学习：
+[Solidity — Solidity 0.8.19 documentation](docs.soliditylang.org)
 
-Solidity — Solidity 0.8.19 documentation
-docs.soliditylang.org
 理解并掌握智能合约后，我们可以进入 DApp 的编码，这是许多互联网行业从业者的强项，我不会在此赘述关于前端编码的经验，如上所述，我们可以使用流行的前端框架，例如 React 或者 Vue 来进行 DApp 的编码。毫无疑问，你会需要一些前端的技术栈知识，主要是 JavaScript 与 CSS。
 
 在此，我想向大家推荐一些优秀的前端库，使用这些代码库来进行合约交互，会使我们的开发效率事半功倍。
 
-以 React 为例，我们可以使用 wagmi 来帮助我们更好的操作合约，它集成了大量基础但够用的 hooks，并提供了与外部 Provider/Signer 交互的快捷函数。与此同时，wgami 没有过多的外部依赖，它的核心依赖只有 ethers.js
+以 React 为例，我们可以使用 [wagmi](https://github.com/wagmi-dev/wagmi) 来帮助我们更好的操作合约，它集成了大量基础但够用的 hooks，并提供了与外部 Provider/Signer 交互的快捷函数。与此同时，wgami 没有过多的外部依赖，它的核心依赖只有 ethers.js.  
 
-GitHub - wagmi-dev/wagmi: React Hooks for Ethereum
+如果你不是一个框架爱好者，想要从零开始构建应用程序，不可避免的，你需要使用 ethers.js 或者 [web3.js](web3js.readthedocs.io) 来进行基本操作。从我自己的使用经验来看，我更推荐 [ethers.js](http://docs.ethers.io/)  
 
-如果你不是一个框架爱好者，想要从零开始构建应用程序，不可避免的，你需要使用 ethers.js 或者 web3.js 来进行基本操作。从我自己的使用经验来看，我更推荐 ethers.js
+一般来说，我们并不需要其他的库为我们提供专门的 Provider/Signer 支持，如果你打算支持更多复杂的 Provider，或者同时支持多网络 Provider/Signer 的读写功能，类似 Apeboard 为它的用户提供跨区块链的数据展现，可以参考 [react-web3](https://github.com/Uniswap/web3-react) 或者 [web3modal](https://github.com/WalletConnect/web3modal) 两个流行的模块，这些模块提供了一些好用的功能，但他们的设计不够解耦，有时会带来不必要的 bug，对此，我保持谨慎推荐。
 
-Documentation
 
-Documentation for ethers, a complete, tiny and simple Ethereum library.
-docs.ethers.io
-web3.js - Ethereum JavaScript API — web3.js 1.0.0 documentation
-web3js.readthedocs.io
-一般来说，我们并不需要其他的库为我们提供专门的 Provider/Signer 支持，如果你打算支持更多复杂的 Provider，或者同时支持多网络 Provider/Signer 的读写功能，类似 Apeboard 为它的用户提供跨区块链的数据展现，可以参考 react-web3 或者 w3modal 两个流行的模块，这些模块提供了一些好用的功能，但他们的设计不够解耦，有时会带来不必要的 bug，对此，我保持谨慎推荐。
-
-GitHub - Uniswap/web3-react: A simple, maximally extensible, dependency minimized framework for building modern Ethereum dApps
-GitHub - Uniswap/web3-react: A simple, maximally extensible, dependency minimized framework for building modern Ethereum dApps
-A simple, maximally extensible, dependency minimized framework for building modern Ethereum dApps - GitHub - Uniswap/web3-react:…
-github.com
-GitHub - WalletConnect/web3modal: A single Web3 provider solution for all Wallets
-GitHub - WalletConnect/web3modal: A single Web3 provider solution for all Wallets
-A single Web3 provider solution for all Wallets. Contribute to WalletConnect/web3modal development by creating an account on Git…
-github.com
 进一步，如果你想不想支持外部 Provider/Signer，而为自己的用户构建一个 Web 钱包，你可以使用 ethers.js 从零开始构建。
 
-如果你想为用户提供一个 onboard 体验更好（但更不去中心化）的托管钱包系统，让他们可以从普通的账户密码或者社交网络账户来登录你的 DApp，可以选择采用 Web3Auth 或 MagicLink 的方案。托管钱包系统是一个非常大的话题，感兴趣的读者可以参考上述两个解决方案自行研究。
+如果你想为用户提供一个 onboard 体验更好（但更不去中心化）的托管钱包系统，让他们可以从普通的账户密码或者社交网络账户来登录你的 DApp，可以选择采用 [Web3Auth]() 或 [MagicLink]() 的方案。托管钱包系统是一个非常大的话题，感兴趣的读者可以参考上述两个解决方案自行研究。
 
-Home
-Web3Auth is a simple, non-custodial auth infrastructure that enables Web3 wallets and applications to provide seamless user logi…
-web3auth.io
-Magic | Web3 Auth & Key Management SDKs
-Magic | Web3 Auth & Key Management SDKs
-Onboard users to your dApp with just an email, phone number, or social login. Multi-chain, highly scalable, and battle-tested.
-magic.link
+
 在理解合约以及 DApp 使用何种方式与区块链进行交互后，开发者很快会意识到，我们并没有通过在本地建立一个节点的方式来与区块链进行操作。如果你在本地部署过 IPFS，你会很快发现它会默认在本地同步节点，就像 BT 下载软件那样。这是否意味着我们的 DApp 不够「去中心化」呢？
 
 实际上，仍然有大量的软件基于本地的全节点来进行交互，只是，对于大部分开发者而言，他们放弃了这样的权利，而转而使用更便利的 Relay Network 与区块链进行通信，通过这种方式，我们节省了部署成本，并且不再需要维护节点的状态缓存，对于快速构建 DApp 来说，选择一个靠谱的 Relay，是无可非议的方案。
@@ -80,24 +56,12 @@ magic.link
 
 Infura 是世界上最早和最大的以太坊 Relay Network，它提供一些公开的 Gateway 节点，但一般来说，我们需要获取属于自己的 DApp Access Key 并为这些访问权限设置 origin 和 IP 限制，以提升使用我们自己的 DApp 用户的访问速度体验。Infura 目前支持 ETH，ETH2 网络，以及 IPFS 和 Filecoin 两个分布式储存方案。
 
- Ethereum API | IPFS API & Gateway | ETH Nodes as a Service
-Ethereum API | IPFS API & Gateway | ETH Nodes as a Service
-Infura's development suite provides instant, scalable API access to the Ethereum and IPFS networks. Connect your app to Ethereum…
-infura.io
 Alchemy 也是一个非常流行的 Relay Network，它在 Infura 的功能上更近一步，为开发者提供了相当多实用的功能，例如调试工具，区块状态推送与丰富的 Webhooks。从某种意义上说，Alchemy 不是一个单纯的 Relay Network，它更像是一个 SaaS 服务，它提供了丰富的自定义 JSON-RPC 方法，实际上，我们的函数库与它的缓存网络进行交互，而不是直接与区块链节点进行交互，这在很大程度上提升了视图（view）方法的访问速度，但依赖 Alchemy 独有的 JSON-RPC 方法，也让 DApp 变得更加中心化了。
 
-Alchemy - the web3 development platform
-Alchemy - the web3 development platform
-Whether you're a beginner developer, startup, web3 market leader, or a large enterprise, Alchemy makes multichain web3 developme…
-www.alchemy.com
 我不会在这里评判去中心化的「道德问题」，各位读者可以根据自己的开发时间周期，风险偏好和使用习惯来决定何种服务适合自己，并为自己的客户与用户提供更好的服务。
 
 在 Relay Network 方面，我想再推荐一个服务：
 
-Moralis Web3 - Enterprise-Grade Web3 APIs
-Moralis Web3 - Enterprise-Grade Web3 APIs
-Bridge the development gap between Web2 and Web3 with Moralis’ powerful Web3 APIs.
-moralis.io
 Moralis 集成了许多 FaaS 的功能到他们的 Relay Network 中，这使得你可以快速在服务端访问区块链的状态，而不需要反复调用第三方网络的 API，这是一个非常有趣而实用的方案，他们的定位是 Web3 的 Firebase，我希望他们能够将软件质量和可用性真正提升到 Firebase 的水平，那这就会是一件非常棒的事儿。
 
 在本文编写的过程中，我得知 Google Cloud Platform 也正在组建他们的 Web3 团队，这意味着我们有可能在不久的将来能在 Firebase 或者 GAE 服务上使用到 Google 的 Relay 服务，我们可以保持适当的关注。
@@ -111,7 +75,6 @@ Moralis 集成了许多 FaaS 的功能到他们的 Relay Network 中，这使得
 使用一个健壮的 FaaS 对许多工程师来说是简单而且实用的选择，我推荐 Firebase，如果你想体验深度集成区块链的 FaaS，也可以参考上述提及的 Moralis。
 
 Firebase
-Firebase
 Firebase is Google's mobile platform that helps you quickly develop high-quality apps and grow your business.
 firebase.google.com
 我选择 Firebase 的主要原因是他们提供成本低廉，服务完善和稳定的健壮 API，同时，他们针对开发者开发了功能齐全的本地模拟测试套件，这会节省我们相当多的时间。
@@ -122,27 +85,22 @@ firebase.google.com
 FaaS 在市面上有太多可选的方案，你可以依赖一个全功能 FaaS，也可以将自己为数不多的「链下状态」储存在 headless CMS 当中，例如 Vercel 或者 Netlify。
 
 Vercel: Develop. Preview. Ship. For the best frontend teams
-Vercel: Develop. Preview. Ship. For the best frontend teams
 Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of i…
 vercel.com
-Develop and deploy websites and apps in record time | Netlify
 Develop and deploy websites and apps in record time | Netlify
 Accelerate the time to deploy your websites and apps. Bring your integrations and APIs together on one powerful serverless platf…
 www.netlify.com
 或者，如果你希望自己搭建 FaaS 服务器，以获得更完善的控制与更低的成本，我向你推荐一些 Firebase 的开源替代品，例如 Supabase:
 
 GitHub - supabase/supabase: The open source Firebase alternative. Follow to stay updated about our public Beta.
-GitHub - supabase/supabase: The open source Firebase alternative. Follow to stay updated about our public Beta.
 The open source Firebase alternative. Follow to stay updated about our public Beta. - GitHub - supabase/supabase: The open sourc…
 github.com
-2. 智能合约编码
+## 2. 智能合约编码
 在这一章节，我们会从 Solidity 语言入手，理解编写一个智能合约与传统的应用软件或界面有何不同，你可以使用上一章节提到的其他智能合约编程语言，但本章节将使用 Solidity（以下简称 Sol） 作为范例阐述智能合约编码中应当注意的问题。
 
-在此，我不会逐行逐句解释 Sol 语言的语义细节，因此，阅读这一章要求你有起码的 Sol 语言知识。我建议，在此之前，请参考并读完所有的 Solidity Examples：
+在此，我不会逐行逐句解释 Sol 语言的语义细节，因此，阅读这一章要求你有起码的 Sol 语言知识。我建议，在此之前，请参考并读完所有的 Solidity Examples
 
-Solidity by Example
-solidity-by-example.org
-2.1 合约特征
+### 2.1 合约特征
 事务性：我们可以将区块链看成是一个事务性数据库，这意味着，要么我们在合约中编写的函数全部被执行，状态依次被修改，要么，所有的状态都会回滚到当初未曾被修改的样子。这意味着，我们在对智能合约进行编码的过程中，要十分注意函数 API 的设计，在具体的函数中，不应当对参数进行重载。同时，也意味着我们在进行错误处理时要十分小心。
 
 错误处理：我们可以选择两种常用的错误处理方式，require(condition, ERR_MESSAGE) 或者 revert customError()，前者传入一个字符串代表错误，后者可以自定义错误类型。两种方式并无本质上的不同，并且都会导致 tx 失败。对于前端而言，我们都需要自定义错误类型来捕获这两种错误。
@@ -161,7 +119,7 @@ solidity-by-example.org
 
 安全性：如上所述，合约的安全性是非常重要和严谨的问题，在将合约发布到生产环境网络之前，确保你已阅读 ConsenSys 编写的合约代码安全最佳实践指南并遵守其中所有的约定，同时，确保合约有足够的测试用例并且较高的测试覆盖度。请不要带有侥幸心理发布未经任何测试的合约代码，并主观地希望它能够正常工作。
 
-2.2 合约依赖与调用
+### 2.2 合约依赖与调用
 依赖引入：合约可以通过 import 引入依赖的外部合约，抽象合约，Interface 或者库。通常，我们使用 npm 管理合约的外部依赖，管理合约的依赖也有其他办法（例如 git submodule）这会在工作流章节中详细叙述。
 
 调用：合约可以调用其他合约，只需知道地址和 ABI，我们就可以在合约内部调用其他合约，需要注意的是，调用合约也是事务性操作，因此，你不需要通过手动管理异步操作的方式来等待返回结果。在合约内部调用其他合约需要消耗额外的 Gas 费用。调用合约可能由于 ABI 错误或者不支持某个函数方法而导致失败，但 Gas 费用并不会返还，我们需要确保在调用其他第三方合约前理解对方合约的接口（包括参数类型，顺序，返回结构）
@@ -197,14 +155,14 @@ event ModuleProposalCreated(
 
 创建合约需要消耗大量 Gas 费用，通常，我们会使用特定工具在创建合约前预估并计算费用，这会在工作流章节中详述。
 
-2.3 合约编程语言特征
+### 2.3 合约编程语言特征
 Sol 需要依赖相应工作流被编译成字节码发布到对应环境的网络中才能被运行，因此，它不像 JavaScript 那样的动态类型语言有随处可见的 runtime，编译器在检查时会帮助我们发现大部分问题，因此，你需要一个 IDE，例如 VSCode 之类的 IDE 或编辑器才能进入合约开发。
 
 Sol 与大部分编程语言类似，支持基本多种数据类型（但不支持浮点数）、复杂数据结构（例如 map，array 和 struct）、合约支持继承和多重继承（is）、原型方法重写（override）等。合约有特殊的构造函数，合约声明的函数支持修饰器语法。特殊地，合约中可以通过 payable 声明或显示转换来实现对原生 Gas token (ETH) 的资金操作。
 
 Sol 虽然是图灵完备的语言，但其中复杂结构的操作会带来相应的 gas 消耗，因此，在设计合约中的状态变量时，应当足够清晰和简单。
 
-2.4 阅读优秀的合约代码
+### 2.4 阅读优秀的合约代码
 合约编程虽然不复杂，但大量的运行时限制和非冗余的设计，导致我们在进行合约编码时，不得不参考许多优秀的合约代码，才能保证我们的合约代码质量。
 
 对于许多其他领域的程序员来说，这一步更是非常必要的。我推荐大家在合约编码的过程中，反复参考优秀合约项目的设计思路和编码思维。在这里，我为大家推荐一些我认为不错的智能合约开源项目。
@@ -212,18 +170,15 @@ Sol 虽然是图灵完备的语言，但其中复杂结构的操作会带来相�
 首先，OpenZeppelin 合约是进入 Web3 领域必须反复的阅读的圣经之一，自 2017 年以来，他们实现了大量的 EIP（以太坊改进提案），并成为了智能合约编码的实际标准。虽然，OZ 的合约在 Gas 费用和效率上存在一些问题，但他们在安全性、代码完成度、可维护性、注释和测试方面都做的很好，是值得信赖的合约基础库。最近，OZ 也发布了他们在 StarkNet 上的 Cairo 语言版本合约。
 
 GitHub - OpenZeppelin/openzeppelin-contracts: OpenZeppelin Contracts is a library for secure smart contract development.
-GitHub - OpenZeppelin/openzeppelin-contracts: OpenZeppelin Contracts is a library for secure smart contract development.
 OpenZeppelin Contracts is a library for secure smart contract development. - GitHub - OpenZeppelin/openzeppelin-contracts: OpenZ…
 github.com
 Solmate 也提供了一系列对应的 EIP 实现，同时，他们更注重合约的运行效率，优化了执行中的 gas 费用，并且每个合约依赖更少，阅读起来更加简单。
 
 GitHub - transmissions11/solmate: Modern, opinionated, and gas optimized building blocks for smart contract development.
-GitHub - transmissions11/solmate: Modern, opinionated, and gas optimized building blocks for smart contract development.
 Modern, opinionated, and gas optimized building blocks for smart contract development. - GitHub - transmissions11/solmate: Moder…
 github.com
 ERC721A 是知名 NFT 项目 Azuki 发布的 ERC721 改善版本，通过特定的位操作，他们实现了内存占用的优化，带来了批量 mint 低 Gas 费用的优势。如果你的项目涉及到大量 NFT 的铸造，可以参考它的合约代码来进行实现。
 
-GitHub - chiru-labs/ERC721A: https://ERC721A.org
 GitHub - chiru-labs/ERC721A: https://ERC721A.org
 https://ERC721A.org. Contribute to chiru-labs/ERC721A development by creating an account on GitHub.
 github.com
@@ -236,32 +191,28 @@ github.com
 Uniswap 是世界上最大的 DEX，他们的合约实现的非常优秀，无论你是否有 DeFi 方面的需求，我都建议你完整阅读他们的合约代码。
 
 GitHub - Uniswap/v3-core: 🦄 🦄 🦄 Core smart contracts of Uniswap v3
-GitHub - Uniswap/v3-core: 🦄 🦄 🦄 Core smart contracts of Uniswap v3
 🦄 🦄 🦄 Core smart contracts of Uniswap v3. Contribute to Uniswap/v3-core development by creating an account on GitHub.
 github.com
 Lens 是 AAVE 推出的以 NFT 为核心的新型社交合约开发套件（或者他们称之为社交合约协议）如果你的项目设计到 SocialFi，可以参考他们的代码实现。
 
-GitHub - lens-protocol/core: The Lens Protocol
 GitHub - lens-protocol/core: The Lens Protocol
 The Lens Protocol. Contribute to lens-protocol/core development by creating an account on GitHub.
 github.com
 其次，我想给大家推荐的是 Zora v3 版本合约与 Gonsis safe，前者是著名的 NFT 交易市场退出的交易合约，后者是著名的多签名钱包合约实现。这些都是我们在使用智能合约能够完成的产品当中非常重要的组成部分：
 
 GitHub - ourzora/v3
-GitHub - ourzora/v3
 Contribute to ourzora/v3 development by creating an account on GitHub.
 github.com
-GitHub - safe-global/safe-contracts: Safe allows secure management of blockchain assets.
 GitHub - safe-global/safe-contracts: Safe allows secure management of blockchain assets.
 Safe allows secure management of blockchain assets. - GitHub - safe-global/safe-contracts: Safe allows secure management of blo…
 github.com
 最后，如果你对 DAO 和链上治理感兴趣，我推荐你阅读我编写的 CodeforDAO 的合约，在这个项目中，实现了传统的治理模式，多签积极治理与模块化合约。
 
 GitHub - CodeforDAO/contracts: Solidity smart contracts of CodeforDAO
-GitHub - CodeforDAO/contracts: Solidity smart contracts of CodeforDAO
 Solidity smart contracts of CodeforDAO. Contribute to CodeforDAO/contracts development by creating an account on GitHub.
 github.com
-3. 开发工作流与单元测试
+
+## 3. 开发工作流与单元测试
 当我们掌握编写智能合约的编程语言后，便可以开始进行工程编码，在这一章节中，我会介绍流行的 DApp 合约开发工作流和编写单元测试的方法。
 
 智能合于自 2017 年发展至今，已存在相当多的项目支撑合约开发中的工作流，如今，大部分项目使用 Hardhat 来支持本地开发工作流。
@@ -276,7 +227,7 @@ Hardhat 提供了一种简单的方式创建本地 EVM 兼容区块链开发的�
 
 Hardhat 还支持配置不同的区块链网络并通过工作流部署合约到生产环境，或者将某个高度的区块链 fork 到本地创建集成测试环境。它提供丰富齐全的文档，可以在他们的官网进行参考。
 
-3.1 整合 Hardhat 工作流
+### 3.1 整合 Hardhat 工作流
 有两种方法可以简单将 Hardhat 整合到你的合约项目，最简单的方法是采用 npx hardhat 向导，它会帮助你在本地建立一个特定的脚手架项目并安装对应依赖。
 
 如果你打算在已经初始化的项目中引入 hardhat 工作流，手动的方式是新建一个配置文件 hardhat.config.js 并安装对应依赖 npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers
@@ -302,7 +253,7 @@ HRE 运行环境变量：
 
 HRE 会在我们执行 npx hardhat run 任务时被自动插入到全局变量中去，我们可以通过这种方法编写某些简单的合约发布脚本或合约交互脚本。
 
-3.2 单元测试
+### 3.2 单元测试
 编写合约的第二步是编写合约的单元测试。当我们运行 npx hardhat test 任务时，hardhat 会自动寻找 ./test 文件夹下的单元测试并运行它们。这个默认的地址可以在 hardhat.config.js 配置文件中使用 path.tests 修改：
 
 // Rewrite the `./test` folder to `./tests`
@@ -325,7 +276,7 @@ Chai matchers — waffle documentation
 ethereum-waffle.readthedocs.io
 注意：合约的单元测试中可以使用 contractInstance.connect(signer) 来随意改变调用合约的外部账户。
 
-3.3 改善测试效率
+### 3.3 改善测试效率
 编写单元测试首先需要我们在测试钩子中编写发布合约的代码，这意味着，我们需要在每次 beforeEach 钩子中重新发布我们的合约并使其从零状态开始运行。
 
 即使 hardhat 支持在内存中运行区块链并整合了单元测试流程，但这样反复的发布合约也会极大拖慢测试速度。
@@ -381,7 +332,7 @@ const shareGovernor = await deploy('ShareGovernor', {
   );
 除此之外，hardhat-deploy 插件还提供了非常多的 HRE 实用函数，例如getNamedAccounts 能帮助我们命名本地测试账户，而非使用数组下标访问它们。你可以参考该插件的 GitHub 主页了解这些实用功能。
 
-3.4 测试覆盖率与 Gas 报告
+### 3.4 测试覆盖率与 Gas 报告
 当合约的单元测试编码到一定程度之后，我们会希望这些合约被发布到某个测试或生产环境（例如测试网络或 ETH 主网）时是否是健壮和低成本的，在此时，我向你推荐两个 hardhat 插件 hardhat-gas-reporter 与 solidity-coverage
 
 hardhat-gas-reporter
@@ -399,7 +350,7 @@ GitHub - sc-forks/solidity-coverage: Code coverage for Solidity smart-contracts
 GitHub - sc-forks/solidity-coverage: Code coverage for Solidity smart-contracts
 Code coverage for Solidity smart-contracts . Contribute to sc-forks/solidity-coverage development by creating an account on GitH…
 github.com
-3.5 其他实用插件
+### 3.5 其他实用插件
 如前所述，hardhat 并不需要以来太多的插件就可以正常工作，满足大部分合约开发团队的需求，我在这里推荐两个其他的使用插件，他们是 @nomiclabs/hardhat-etherscan 和 @tenderly/hardhat-tenderly
 
 这些插件都是可选的，并依赖第三方服务的 API Key，各位读者可以根据自己的情况选择是否使用他们。
@@ -420,12 +371,11 @@ GitHub - Tenderly/hardhat-tenderly: Tenderly plugin for HardHat
 GitHub - Tenderly/hardhat-tenderly: Tenderly plugin for HardHat
 Tenderly plugin for HardHat. Contribute to Tenderly/hardhat-tenderly development by creating an account on GitHub.
 github.com
-3.6 更快的工作流方案：Foundry
+### 3.6 更快的工作流方案：Foundry
 尽管在过去的三年中 hardhat 逐渐垄断了 EVM 兼容链中的智能合约开发工作流市场，但最近也有很多强有力的竞争者出现，Foundry 就是其中之一：
 
 Foundry 由 Rust 语言编写，并在很多方面极大地提升了合约单元测试的运行效率：
 
-Forge VS Harhat
 
 Forge VS Harhat
 Foundry 由它的命令行工具 Forge 与 cast 组成，前者帮助我们安装第三方依赖组件（使用 git submodule 方式）运行测试，发布合约，后者帮助我们与合约进行 RPC 通信交互。
@@ -439,7 +389,8 @@ Foundry 由它的命令行工具 Forge 与 cast 组成，前者帮助我们安�
 Foundry Book
 A book on all things Foundry
 book.getfoundry.sh
-4. 前端与客户端开发
+
+## 4. 前端与客户端开发
 由于第三方钱包软件的盛行，Web3 大部分产品（DApp）的用户节目实际上都由前端网页所构成，这与移动互联网的开发流程相悖，但很像早期 Web2.0 历史发展进程的一部分。
 
 许多 DApp 并不提供 Mobile App 版本，部分原因是由于构建一个跨平台钱包方案过于复杂，以及大部分 Web3 领域内的用户都在使用诸如 MetaMask 这类浏览器插件钱包，而它的移动端 App 体验并不好用。
@@ -450,7 +401,7 @@ book.getfoundry.sh
 
 在本章节，我们所涉及到的大部分内容都是基于这样的假设，因此，这部分内容需要你熟悉 JavaScript，React.js/Vue.js 和它们相关的工作流。
 
-4.1 前端框架的选择
+### 4.1 前端框架的选择
 使用何种视图框架并不会影响你的 DApp 体验，但是，这会影响到开发效率。
 
 在本文的第一部分「认识 DApp 技术栈」我们介绍了 ethers.js 和 web3.js，这两者都是构建 Web 前端的基础类库。如上所述，我建议使用 ethers.js 入门进行开发。
@@ -459,7 +410,7 @@ book.getfoundry.sh
 
 另外，大部分对于 ethers.js/web3.js 的包装项目，诸如 web3-react，wagmi 等都依赖你理解 React hooks 的概念，所以在你着手进行编码之前，需要查阅它的文档。
 
-4.2 搭建脚手架项目
+### 4.2 搭建脚手架项目
 我们可以使用任何蓝图工具创建对应的视图框架的脚手架项目，但是，我们也可以参考现有的 Web App 项目来进行开发。
 
 在编写前端代码之前，我推荐你参考流行的脚手架项目 scaffold-eth
@@ -467,16 +418,14 @@ book.getfoundry.sh
 scaffold-eth 是一个完整的合约脚手架，它的 packages/react-app 文件夹是它的 Web 前端代码，对于熟练合约开发的工程师而言，这个脚手架的组织方式有些不太理想，但对于刚入门 Web3，打算搭建第一个测试项目的朋友来说，这是个很棒的入门工具。
 
 GitHub - scaffold-eth/scaffold-eth: 🏗 forkable Ethereum dev stack focused on fast product iterations
-GitHub - scaffold-eth/scaffold-eth: 🏗 forkable Ethereum dev stack focused on fast product iterations
 🏗 forkable Ethereum dev stack focused on fast product iterations - GitHub - scaffold-eth/scaffold-eth: 🏗 forkable Ethereum de…
 github.com
 当我们决定了使用何种视图框架来开发前端 Web App 之后，就可以着手使用它对应的脚手架 cli 来创建项目了。对于没有任何偏好的读者，我推荐你使用 React + Next.js 来初始化新项目，Next.js 使用 React 作为基础视图框架，并提供了丰富的工作流，简单的路由系统，好用的 SSR 与 FaaS 支持，当然，它也是一个非常好用 site builder 工具。
 
 Next.js by Vercel - The React Framework
-Next.js by Vercel - The React Framework
 Production grade React applications that scale. The world’s leading companies use Next.js by Vercel to build static and dynamic …
 nextjs.org
-4.3 前端与合约的交互流程
+### 4.3 前端与合约的交互流程
 当我们在 DApp 的业务逻辑编码进行到一定程度后，需要与合约 ABI 进行读写，或者，我们需要连接用户的钱包，为其铸造一个 NFT，这里就涉及到前端与合约的交互。
 
 在本文的第一章节「认识 DApp 技术栈」中，我们提到与区块链网络进行交互最终会使用 Provider/Signer（前端） + Relay Network（区块链端）因此，这个流程最终会使用 ethers.js 或 web3.js 发送对应的 XHR 请求到 Relay Network 的 API Endpoint。但是，具体而言，开发者和用户如何理解这一与众不同的流程呢？
@@ -494,41 +443,32 @@ nextjs.org
 对于合约多个 ABI 的写操作可以合并请求，这样可以减少用户在进行操作时的 Gas 费用，如果你有这个需求，可以参考 Multicall.js 的实现：
 
 GitHub - makerdao/multicall.js: Multicall.js: A JavaScript blockchain state management library for dapps
-GitHub - makerdao/multicall.js: Multicall.js: A JavaScript blockchain state management library for dapps
 Multicall.js: A JavaScript blockchain state management library for dapps - GitHub - makerdao/multicall.js: Multicall.js: A JavaS…
 github.com
-4.4 前端依赖
+### 4.4 前端依赖
 大量的重复工作都建立在优秀的开源项目基础上，在 DApp 编写过程中，我推荐你使用一些优秀的前端库来减少工作量，并实现更好的代码交付质量。
 
 wagmi 是我推荐的核心依赖之一，它提供了丰富的 React hooks 来完成 DApp Web 前端与合约交互的所有流程。它的实现简单，测试健全，而且没有多余的冗余依赖库。
 
-GitHub - wagmi-dev/wagmi: React Hooks for Ethereum
 GitHub - wagmi-dev/wagmi: React Hooks for Ethereum
 React Hooks for Ethereum. Contribute to wagmi-dev/wagmi development by creating an account on GitHub.
 github.com
 谈到 React hooks，我也推荐 useDApp，相比于 wagmi，它更加复杂，但默认支持 multicall.js
 
 GitHub - TrueFiEng/useDApp: Framework for rapid Dapp development. Simple. Robust. Extendable. Testable
-GitHub - TrueFiEng/useDApp: Framework for rapid Dapp development. Simple. Robust. Extendable. Testable
 Framework for rapid Dapp development. Simple. Robust. Extendable. Testable - GitHub - TrueFiEng/useDApp: Framework for rapid Dap…
 github.com
 如果你的网站将要集成钱包登录的功能，那你则需要考虑引入 Siwe（Sign-In with Ethereum）它实现了 EIP-4361 中的钱包登录流程。
 
 GitHub - spruceid/siwe: Sign-In with Ethereum library
-GitHub - spruceid/siwe: Sign-In with Ethereum library
 Sign-In with Ethereum library. Contribute to spruceid/siwe development by creating an account on GitHub.
 github.com
 如果你的 Next.js DApp 计划提供多语言版本和检测，我推荐你使用 i18next 与 react-i18next 与 i18next-browser-languagedetector 这些依赖与 DApp 的核心交互逻辑没有关系，因此不再赘述。
 
-在 UI 库方面，我推荐基于 Google Materials UI 设计系统的 MUI 与 NextUI：
+在 UI 库方面，我推荐基于 Google Materials UI 设计系统的 [MUI](mui.com) 与 [NextUI](nextui.org)：
 
-mui.com
-mui.com
-NextUI - Beautiful, fast and modern React UI Library
-NextUI - Beautiful, fast and modern React UI Library
-Make beautiful websites regardless of your design experience.
-nextui.org
-4.5 客户端开发
+
+### 4.5 客户端开发
 客户端开发的方案比较多样，流行的方案是 React Native（跨平台）Flutter（跨平台）Swift（iOS）和 Java (Android) 这些方案都有一些流行的依赖库可以借鉴。
 
 考虑到 React Native（跨平台）的实现，它的依赖库与 React 应当并无差异，可以使用上述针对 React 的方案。
@@ -536,31 +476,27 @@ nextui.org
 对于 Flutter（跨平台） 而言，我推荐你参考这一官方指南：
 
 Ethereum for Dart developers | ethereum.org
-Ethereum for Dart developers | ethereum.org
 Learn how to develop for Ethereum using the Dart language
 ethereum.org
 其中，我们可以使用 web3dart 来与区块链 Relay 进行通信：
 
-web3dart | Dart Package
 web3dart | Dart Package
 Dart library to connect to Ethereum clients. Send transactions and interact with smart contracts!
 pub.dev
 对于 Swift（iOS）而言，我们可以使用 Argent labs 团队提供的 web3.swift 方案：
 
 GitHub - argentlabs/web3.swift: Ethereum Swift API with support for smart contracts, ENS & ERC20
-GitHub - argentlabs/web3.swift: Ethereum Swift API with support for smart contracts, ENS & ERC20
 Ethereum Swift API with support for smart contracts, ENS & ERC20 - GitHub - argentlabs/web3.swift: Ethereum Swift API with suppo…
 github.com
 对于 Java (Android) 而言，流行的方案之一是 Web3j：
 
 GitHub - web3j/web3j: Lightweight Java and Android library for integration with Ethereum clients
-GitHub - web3j/web3j: Lightweight Java and Android library for integration with Ethereum clients
 Lightweight Java and Android library for integration with Ethereum clients - GitHub - web3j/web3j: Lightweight Java and Android …
 github.com
-5. 开发、测试与生产环境调试
+## 5. 开发、测试与生产环境调试
 与其他软件一样，DApp 在正式上线过程前也会经过几个环节的调试与测试过程。与其他软件不同的时，我们通常无法简单地在本地搭建所有测试环境。
 
-5.1 开发环境调试
+### 5.1 开发环境调试
 在「开发工作流与单元测试」章节中，我们提到使用 hardhat node 能够快速在本地运行一个自动 mining 的区块链调试网络。那么，我们如何将每次修改的合约 ABI 同步给前端项目呢？
 
 默认地，hardhat 会将编译后的 ABI 文件和合约字节码放在 ./artifacts 文件夹，但不包括合约地址，文件组织方式对前端项目也并不友好。
@@ -585,7 +521,7 @@ npx hardhat node --export-all ../website/contracts/localhost.json
 
 注意：前端项目与本地合约进行调试时，请特别注意 Provider/Signer 当前连接的网络。另外，默认地，hardhat 网络的区块确认是即时的，如果你需要模仿公开网络的行为，可以在这里寻找到修改它的配置。
 
-5.2 测试与生产环境调试
+### 5.2 测试与生产环境调试
 当我们的合约准备发布到公开测试网络，例如 Rinkeby, Kovan, Ropsten 或者 Goerli 时，我们只需要在 hardhat deploy 中指定对应的 network 选项即可:
 
 npx hardhat deploy --network rinkeby
@@ -598,16 +534,14 @@ npx hardhat deploy --network rinkeby
 公开测试环境中的第三方合约状态是未可知的，因此，我们需要再三确认调用的地址是否正确。其次，大部分流行的协议或者 DEX 在几大公开测试网络都提供了测试合约，包括 OpenSea 在内，部分流行的 DApp 前端也提供了测试网络的版本，以帮助开发者在发布到线上网络前发现问题：
 
 testnets.opensea.io
-testnets.opensea.io
 此外，你需要一些测试 ETH 才能确保公开测试网络中合约与逻辑正常工作，同时，你的用户也会需要它们。这里是一些可以获得测试 ETH 的网站和服务：
 
-Paradigm MultiFaucet | Bootstrap your testnet wallet
 Paradigm MultiFaucet | Bootstrap your testnet wallet
 MultiFaucet funds a wallet with ETH, wETH, DAI, and NFTs across 8 testnet networks, at once.
 faucet.paradigm.xyz
 rinkebyfaucet.com
-rinkebyfaucet.com
-6. 服务端编码与集成
+
+## 6. 服务端编码与集成
 服务端一直是 DApp 被认为没那么「去中心化」的原因之一。就我所知，世界上绝大多数 DApp 都有服务端 API 提供支持，只有少数类似 Uniswap 这样的产品，仅依赖前端与合约进行通信。
 
 但绝大多数 DApp 的 Web UI 实现了去中心化。因此，我们需要区分服务端 API 在 DApp 开发中所属的地位，不能将核心逻辑放在私有服务器中依赖，或者一味使用服务端储存的机器人钱包私钥来操作区块链。
@@ -616,7 +550,7 @@ rinkebyfaucet.com
 
 DApp 的服务端 API 并不要求特殊配置。因此，你可以使用任何你喜欢的编程语言运行环境来编写它。一般来说，我们使用 Node，因为这样可以复用一部分 Provider/Signer 的前端业务逻辑。
 
-6.1 开发环境
+### 6.1 开发环境
 如果你的 DApp 并不复杂，不需要储存太多状态，我推荐你使用上述章节提到的 Next.js 方案，它可以直接被 push 到 Vercel，后者将能够自动地将你 Next.js 项目中的 API 部署到对应的服务环境。
 
 如果你的 DApp 依赖较多的数据库和服务，我推荐你使用 FaaS，我常用的一个 FaaS 服务是 Firebase，你可以使用 Firebase 快速连接实时数据库，整合 Twitter 或 GitHub 的第三方登录，它还提供非常好用的本地模拟器工具套件，以及，它能够非常好地支持跨平台。
@@ -629,7 +563,7 @@ firebase.google.com
 在服务端使用 Provider/Signer 与区块链 Relay 进行通信
 接下来我们会简单介绍这两部分内容。
 
-6.2 关于钱包登录
+### 6.2 关于钱包登录
 许多刚入门 Web3 的开发者会认为，钱包登录只需要使用前端脚本连接钱包即可，但这种逻辑很容易被 hack，因为任何客户端状态都能够被低成本修改。
 
 Siwe（Sign-In with Ethereum）将 EIP-4361 草案引入了以太坊改进协议，目的是标准化开发者使用钱包登录授权 Off-chain 产品的逻辑。它的流程与 JWT 的发行相似。
@@ -641,10 +575,9 @@ Siwe 支持绝大多数编程语言和它们的运行环境（JavaScript, Rust, 
 因此，我们需要提供两个 API 来实现 Siwe，分别是 /nonce 和 /vertify 你可以在这里找到它们的代码范例：
 
 GitHub - spruceid/siwe-quickstart
-GitHub - spruceid/siwe-quickstart
 Contribute to spruceid/siwe-quickstart development by creating an account on GitHub.
 github.com
-6.3 服务端与区块链的通信
+### 6.3 服务端与区块链的通信
 在某些情况下我们需要在服务端进行与区块链 Relay Network 的通信，如果你使用 Node 作为运行环境，它的逻辑代码和前端是一致的。
 
 如果服务端只需要使用到 Provider 与 Relay Network 通信（只读模式），比如，我们通过整合区块高度，某个合约状态和订阅事件，来组建我们自己的数据缓存服务并提供 API，那我们只需要按照前端的方式与 Relay Network 建立通信即可。在这种模式下，我们可以把 access key 存放在生产环境的环境变量中，我推荐你使用 dotenv 去处理它们。
@@ -662,17 +595,15 @@ github.com
 我认为，将私钥放在环境变量中不是一个好办法，我们无法控制第三方模块是否会将环境变量中的内容计入日志或者远程统计。因此，我们可以采用专业的私钥管理服务来管理，例如使用 Google Secret Manager 或者 AWS Secrets Manager 来进行管理，而前者可以与 Firebase 很好地进行整合。
 
 Secret Manager  |  Google Cloud
-Secret Manager  |  Google Cloud
 Securely store API keys, passwords, certificates, and other sensitive data with Google Cloud’s Secret Manager.
 cloud.google.com
 通过 Provider 和 Signer 与 Relay Network 进行通信只需要传递钱包私钥给对应的 Provider/Signer 实例即可完成操作，与本地进行单元测试的机器人钱包一样，它不会有额外的确认过程，因此，我们需要确认钱包中有足够的 ETH 或其他 Gas token 余额，否则该交易会失败。
 
 一般来说，如果我们的服务端接口中有对应的合约写操作，我们不会等待交易完成再返回数据，因此，我们需要返回对应的 tx.hash 方便前端界面处理后续逻辑。
 
-6.4 实用的 SDK
+### 6.4 实用的 SDK
 一些 SDK 和对应服务可以帮助我们更方便地在服务端与合约进行通信，例如 ThirdWeb：
 
-thirdweb: The complete web3 development framework
 thirdweb: The complete web3 development framework
 Build web3 apps easily with thirdweb's powerful SDKs, audited smart contracts, and developer tools—for Ethereum, Polygon, Solana…
 thirdweb.com
@@ -698,7 +629,7 @@ GitHub - thirdweb-dev/typescript-sdk: Best in class web3 SDK for Browser, Node a
 GitHub - thirdweb-dev/typescript-sdk: Best in class web3 SDK for Browser, Node and Mobile apps
 Best in class web3 SDK for Browser, Node and Mobile apps - GitHub - thirdweb-dev/typescript-sdk: Best in class web3 SDK for Brow…
 github.com
-7. 合约部署方案 L1s & L2
+## 7. 合约部署方案 L1s & L2
 在 DApp 开发中，与传统产品最大的不同点之一是我们需要决定将产品核心逻辑的智能合约发布到那个网络（或者哪些网络）这意味着，DApp 需要有「跨平台跨网络」的支持能力。
 
 对于传统互联网开发人员来说，我们很容易理解「跨平台」，它是指我们需要为 App 界面提供 PC Web/Mobile Web，iOS/Android App 的各种版本。「跨网络」在 DApp 的开发中指的是，我们需要让 DApp 前端/客户端支持多个区块链网络。在那之前，我们需要决定哪些区块链网络是我们首选的发布环境。
@@ -726,7 +657,7 @@ Dfinity (ICP)： 一个完整的 DApp 生态系统。
 
 我们正处于一个区块链网络的战国时代，因此，选择部署的网络不存在绝对的最佳实践，可以参考个人的需求进行选择。
 
-8. 去中心化储存方案
+## 8. 去中心化储存方案
 在 DApp 开发中，我们通常会将资产的元数据、DApp UI 界面等储存在去中心化储存网络当中，以防止单点故障导致的资产损失和不可用。
 
 简单来说，资产的元数据通常指的是 NFT 中合约储存的 tokenURI() 返回的内容，它可能是一个 JSON 编码的字符串，将这些字符串储存在合约当中需要耗费相当大的成本，因此，最佳实践是将他们部署到去中心化储存网络中，再保存储存对象的索引 ID（例如 IPFS CID）
@@ -748,7 +679,7 @@ Bundlr 基于 Arweave 构建的永久储存服务，支持用多链 token 结算
 
 IPFS Content Addressed Archiver
 car.ipfs.io
-9. 附录
+## 9. 附录
 本文中提到的所有项目均列在我的 GitHub Star 清单中，可以在这里统一查阅：
 
 https://guoyu.mirror.xyz/RD-xkpoxasAU7x5MIJmiCX4gll3Cs0pAd5iM258S1Ek
