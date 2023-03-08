@@ -48,6 +48,15 @@ module.exports = {
               ],
             },
             {
+              title: "标准",
+              path: '/standards/Introduce',
+              collapsable: true, // 不折叠
+              children: [
+                { title: "介绍", path: "/standards/Introduce" },
+                { title: "ERC721", path: "/standards/ERC721" },
+              ],
+            },
+            {
               title: "教程:professional-solidity",
               path: '/professional-solidity/Contents',
               collapsable: true, // 不折叠
@@ -84,20 +93,46 @@ module.exports = {
                 { title: "介绍", path: "/openzeppelin-learn/Introduce" },
               ],
             },
+          
             {
-              title: "Relay",
-              path: '/openzeppelin-learn/Introduce',
+              title: "nodejs",
+              path: '/nodejs/Introduce',
               collapsable: true, // 不折叠
               children: [
-                { title: "介绍", path: "/openzeppelin-learn/Introduce" },
+                { title: "介绍", path: "/nodejs/Introduce" },
+                { title: "Etherjs", path: "/nodejs/Etherjs" },
+                { title: "Wagmi", path: "/nodejs/Wagmi" },
               ],
             },
             {
               title: "Go",
-              path: '/openzeppelin-learn/Introduce',
+              path: '/go/Introduce',
               collapsable: true, // 不折叠
               children: [
-                { title: "介绍", path: "/openzeppelin-learn/Introduce" },
+                { title: "介绍", path: "/go/Introduce" },
+                { title: "Geth", path: "/go/Geth" },
+              ],
+            },
+            {
+              title: "Relay",
+              path: '/relay/Introduce',
+              collapsable: true, // 不折叠
+              children: [
+                { title: "介绍", path: "/relay/Introduce" },
+                { title: "Infura", path: "/relay/Infura" },
+                { title: "Alchemy", path: "/relay/Alchemy" },
+                { title: "Moralis", path: "/relay/Moralis" },
+
+
+              ],
+            },
+            {
+              title: "Dapp",
+              path: '/dapp/CreateWeb3Dapp',
+              collapsable: true, // 不折叠
+              children: [
+                { title: "CreateWeb3Dapp", path: "/dapp/CreateWeb3Dapp" },
+                { title: "转账信息显示动图", path: "/project/TransferMsgWithGif" },
               ],
             },
             {
