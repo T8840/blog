@@ -52,7 +52,16 @@ module.exports = {
               collapsable: false, // 不折叠
               children: [
                 { title: "市场分析", path: "/coin/Introduce" },
-                
+                { title: "策略分析", path: "/coin/Strategy" },
+                { title: "数据分析", path: "/coin/Data" },
+              ],
+            },
+            {
+              title: "大宗商品",
+              path: '/goods/Introduce',
+              collapsable: false, // 不折叠
+              children: [
+                { title: "市场分析", path: "/goods/Introduce" },
               ],
             },
             {
