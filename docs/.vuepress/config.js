@@ -53,7 +53,19 @@ module.exports = {
               collapsable: true, // 不折叠
               children: [
                 { title: "介绍", path: "/standards/Introduce" },
+                { title: "ERC20", path: "/standards/ERC20" },
                 { title: "ERC721", path: "/standards/ERC721" },
+              ],
+            },
+            {
+              title: "教程:WTF学院",
+              path: '/wtf-academy/Introduce',
+              collapsable: true, // 不折叠
+              children: [
+                { title: "介绍", path: "/wtf-academy/Introduce" },
+                { title: "基础", path: "/wtf-academy/Base" },
+                { title: "进阶", path: "/wtf-academy/Advance" },
+                { title: "应用", path: "/wtf-academy/Application" },
               ],
             },
             {
@@ -132,7 +144,7 @@ module.exports = {
               collapsable: true, // 不折叠
               children: [
                 { title: "CreateWeb3Dapp", path: "/dapp/CreateWeb3Dapp" },
-                { title: "转账信息显示动图", path: "/project/TransferMsgWithGif" },
+                { title: "转账信息显示动图", path: "/dapp/TransferMsgWithGif" },
               ],
             },
             {
@@ -141,6 +153,13 @@ module.exports = {
               collapsable: true, // 不折叠
               children: [
                 { title: "汇总", path: "/project/Summary" },
+              ],
+            }, {
+              title: "工具",
+              path: '/tools/Summary',
+              collapsable: true, // 不折叠
+              children: [
+                { title: "汇总", path: "/tools/Summary" },
               ],
             },
           ]
