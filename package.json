@@ -1,0 +1,16 @@
+{
+  "name": "t8840.github.io",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs" ,
+    "docs:build": "vuepress build docs"
+  },
+  "repository": "https://github.com/T8840/t8840.github.io",
+  "author": "T8840",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.8",
+    "vuepress-theme-reco": "^1.6.16"
+  }
+}
