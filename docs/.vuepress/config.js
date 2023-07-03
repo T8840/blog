@@ -33,9 +33,21 @@ module.exports = {
               path: '/basic/DesignPhilosophy',
               collapsable: false, // 不折叠
               children: [
+                { title: "基础知识", path: "/basic/BasicLearning" },
                 { title: "安装方法", path: "/basic/InstallMethod" },
+                { title: "模块", path: "/basic/Module" },
+
               ],
             },
+            {
+              title: "依赖库",
+              path: '/lib/Introduce',
+              collapsable: false, // 不折叠
+              children: [
+                { title: "介绍", path: "/lib/Introduce" },
+                { title: "DB库", path: "/lib/DBTools" },
+              ],
+            }
             {
               title: "项目",
               path: '/project/CmdTool',
